@@ -12,6 +12,15 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/search/:title', (req, res) => {
+    queries.findBook(req.params.title)
+        .then(match => {
+            res.json({
+                matches: match
+            })
+        })
+})
+
 router.get('/justbooks', (req, res) => {
     queries.getJustBooks('book')
         .then(data => {

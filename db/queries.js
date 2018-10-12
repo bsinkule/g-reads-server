@@ -35,6 +35,26 @@ const addNewAuthor = (table, body) => knex(table).insert(body).returning('*')
 
 const deleteJoin = (table, book, auth) => knex(table).where({'book_id': book, 'author_id': auth}).del().returning('*')
 
+const findBook = (title) => {
+    return knex('book')
+        .then(book => {
+            return book.filter(bok => {
+                let testExp = new RegExp(title, 'i')
+                return testExp.test(bok.title)
+            })
+        })
+}
+
+const findAuthor = (last) => {
+    return knex('author')
+        .then(author => {
+            return author.filter(auth => {
+                let testExp = new RegExp(last, 'i')
+                return testExp.test(auth.last)
+            })
+        })
+}
+
 module.exports = {
     getAllBooks,
     getAllAuthors,
@@ -46,5 +66,7 @@ module.exports = {
     updateOne,
     deleteOne,
     addNewAuthor,
-    deleteJoin
+    deleteJoin,
+    findBook,
+    findAuthor
 }

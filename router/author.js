@@ -12,6 +12,15 @@ router.get('/', (req, res) => {
         })
 })
 
+router.get('/search/:last', (req, res) => {
+    queries.findAuthor(req.params.last)
+        .then(match => {
+            res.json({
+                matches: match
+            })
+        })
+})
+
 router.get('/justauthors', (req, res) => {
     queries.getJustAuthors('author')
         .then(data => {
